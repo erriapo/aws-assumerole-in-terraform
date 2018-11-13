@@ -131,3 +131,7 @@ destroy:
 ```
 
 Et voilà!
+
+# Reference
+
+* [AWS - Configuring MFA-Protected API Access](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_mfa_configure-api-require.html#MFAProtectedAPI-cross-account-delegation)
