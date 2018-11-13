@@ -27,7 +27,7 @@ provider "aws" {
 }
 ```
 
-Unfortunately this does not work. And here are the tickets submitted open for this problem.
+Unfortunately this does not work. And a few tickets have been open for this problem.
 
 * [#472](https://github.com/terraform-providers/terraform-provider-aws/issues/472)
 * [#2420](https://github.com/terraform-providers/terraform-provider-aws/issues/2420)
@@ -35,11 +35,11 @@ Unfortunately this does not work. And here are the tickets submitted open for th
 
 # Scenario
 
-This is the scenario that we will discuss my solution.
+To discuss my solution, I will use this scenario for illustration.
 
 ![scenario](mfa-delegated-accounts.png)
 
-For the IAM role `productionEC2Full`, its trust policy which demands the presence of MFA looks like this:
+For the IAM role `productionEC2Full`, its trust policy - which demands the presence of MFA - looks like this. I will limit this discussion to Virtual MFA only.
 
 ```JSON
 {
@@ -63,7 +63,7 @@ For the IAM role `productionEC2Full`, its trust policy which demands the presenc
 }
 ```
 
-The IAM user in the master account `calvin` is assigned the policy to assume the target role.
+The IAM user in the master account `calvin` is assigned this policy to assume the target role.
 
 ```JSON
 {
@@ -88,9 +88,8 @@ role_arn = arn:aws:iam::222222222222:role/productionEC2Full
 mfa_serial = arn:aws:iam::111111111111:mfa/calvin
 ```
 
-Thus, we will not use terraform's `assume_role` section to indicate what role to assume. That job is left to `aws-vault`
+We will not use terraform's `assume_role` section to indicate what role to assume. That job is left instead to `aws-vault`
 and it will pass the following environment variables to terraform
-
 
 ```bash
 AWS_VAULT=calvin
@@ -130,3 +129,5 @@ apply:
 destroy:
         $(TF) destroy
 ```
+
+Et voilà!
