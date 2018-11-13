@@ -2,7 +2,7 @@
 
 Hello World
 
-!mfa-delegated-accounts.png!
+![scenario](mfa-delegated-accounts.png)
 
 # Solution
 
