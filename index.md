@@ -117,6 +117,10 @@ TERRAFORM := /home/yoda/bin
 PROFILE ?= calvin
 TF := TF_LOG=DEBUG $(VAULT)/aws-vault --prompt=terminal exec $(PROFILE) -- $(TERRAFORM)/terraform
 
+.PHONY: init
+init:
+        $(TF) init 
+
 .PHONY: plan
 plan:
         $(TF) plan 
