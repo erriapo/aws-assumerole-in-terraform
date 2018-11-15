@@ -110,6 +110,58 @@ provider "aws" {
 }
 ```
 
+## Test that the assumeRole works with the aws CLI
+
+```bash
+$ aws-vault --prompt=terminal exec calvin -- aws sts get-caller-identity
+```
+
+The Cloudtrail event generated:
+
+```JSON
+{
+  "eventVersion": "1.05",
+  "userIdentity": {
+    "type": "AssumedRole",
+    "principalId": "AROA************:calvin",
+    "arn": "arn:aws:sts::222222222222:assumed-role/productionEC2Full/calvin",
+    "accountId": "222222222222",
+    "accessKeyId": "ASIA***********",
+    "sessionContext": {
+      "attributes": {
+        "mfaAuthenticated": "true",
+        "creationDate": "2018-11-15T00:45:40Z"
+      },
+      "sessionIssuer": {
+        "type": "Role",
+        "principalId": "AROA************",
+        "arn": "arn:aws:iam::222222222222:role/productionEC2Full",
+        "accountId": "222222222222",
+        "userName": "productionEC2Full"
+      }
+    }
+  },
+  "eventTime": "2018-11-15T00:45:40Z",
+  "eventSource": "sts.amazonaws.com",
+  "eventName": "GetCallerIdentity",
+  "awsRegion": "us-east-1",
+  "sourceIPAddress": "1.1.1.1",
+  "userAgent": "aws-cli/1.16.55 Python/2.7.13 Linux/4.14.33+ botocore/1.12.45",
+  "requestParameters": null,
+  "responseElements": {
+    "userId": "AROA*************:calvin",
+    "account": "222222222222",
+    "arn": "arn:aws:sts::222222222222:assumed-role/productionEC2Full/calvin"
+  },
+  "requestID": "c6c1bf48-****-****-****-**********",
+  "eventID": "f2e8baad-****-****-****-*********",
+  "eventType": "AwsApiCall",
+  "recipientAccountId": "222222222222"
+}
+```
+
+## Productivity tip
+
 To ensure that you are indeed executing under a specific profile, create a `Makefile` to simplify your life.
 
 ```bash
