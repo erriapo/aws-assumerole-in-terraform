@@ -85,6 +85,7 @@ It is assumed that a `calvin` profile has been created via `aws-vault`:
 output = json
 region = us-east-2
 role_arn = arn:aws:iam::222222222222:role/productionEC2Full
+role_session_name = calvin
 mfa_serial = arn:aws:iam::111111111111:mfa/calvin
 ```
 
